@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Beer" ALTER COLUMN "image" DROP NOT NULL;
