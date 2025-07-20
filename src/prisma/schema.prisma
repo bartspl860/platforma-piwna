@@ -15,50 +15,49 @@ datasource db {
 }
 
 model User {
-  id             String    @id @default(cuid())
+  id             String    @id @default(uuid())
   name           String?
   email          String?   @unique
   image          String?
   hashedPassword String? // Add this line
   accounts       Account[]
   sessions       Session[]
-	votes    Vote[]
+  votes          Vote[]
 }
 
 model Beer {
-  id          String   @id @default(cuid())
-  name        String
-  alcohol     Float    // % alcohol
-	price       Int?     // cena w groszach
-  category    BeerCategory
-  image       String?
-  votes       Vote[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String       @id @default(uuid())
+  name      String
+  alcohol   Float // % alcohol
+  price     Int? // cena w groszach
+  category  BeerCategory
+  image     String?
+  votes     Vote[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
 }
 
-
 model Vote {
-  id        String   @id @default(cuid())
+  id        String   @id @default(uuid())
   user      User     @relation(fields: [userId], references: [id])
   userId    String
   beer      Beer     @relation(fields: [beerId], references: [id])
   beerId    String
-  stars     Int      // 0-10
+  stars     Int // 0-10
   comment   String?
   createdAt DateTime @default(now())
-	updatedAt   DateTime @updatedAt
+  updatedAt DateTime @updatedAt
 
   @@unique([userId, beerId]) // 1 vote per user per beer
 }
 
 enum BeerCategory {
-  SMAKOWE        // flavored
-  NIESMAKOWE     // non-flavored
+  SMAKOWE // flavored
+  NIESMAKOWE // non-flavored
 }
 
 model Account {
-  id                String  @id @default(cuid())
+  id                String  @id @default(uuid())
   userId            String
   type              String
   provider          String
@@ -77,7 +76,7 @@ model Account {
 }
 
 model Session {
-  id           String   @id @default(cuid())
+  id           String   @id @default(uuid())
   sessionToken String   @unique
   userId       String
   expires      DateTime

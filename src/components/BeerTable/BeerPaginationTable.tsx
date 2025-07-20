@@ -44,28 +44,58 @@ export function BeerPaginationTable() {
 			{
 				accessorKey: "alcohol",
 				header: "Alkohol",
+				filterVariant: "range",
+				minSize: 1,
 				Cell: ({ cell }) => `${cell.getValue()}%`,
 			},
 			{
 				accessorKey: "price",
+
 				header: "Cena",
-				Cell: ({ row }) => {
-					const price = row.original.price;
-					return price ? `${price}zł` : "-";
+
+				Cell: ({ cell }) =>
+					cell.getValue<number>().toLocaleString("pl", {
+						style: "currency",
+						currency: "PLN",
+					}),
+
+				filterVariant: "range-slider",
+				filterFn: (row, columnId, filterValue) => {
+					const value = row.getValue(columnId);
+					if (
+						typeof value !== "number" ||
+						!Array.isArray(filterValue) ||
+						filterValue.length !== 2
+					) {
+						return false;
+					}
+					return value >= filterValue[0] && value <= filterValue[1];
+				},
+				mantineFilterRangeSliderProps: {
+					max: 30,
+					min: 0,
+					step: 1,
+					minRange: 1,
+					label: (value) =>
+						value.toLocaleString("pl", {
+							style: "currency",
+							currency: "PLN",
+						}),
 				},
 			},
 			{
 				accessorKey: "category",
 				header: "Kategoria",
+				filterVariant: "select",
 			},
 			{
 				accessorKey: "image",
 				header: "Obraz",
-				// Custom cell render for image
+				enableColumnFilter: false,
 				Cell: ({ cell }) => (
 					<img
 						src={cell.getValue<string>()}
-						alt="Beer"
+						alt="<Brak>"
 						style={{
 							width: 50,
 							height: 50,
@@ -78,6 +108,8 @@ export function BeerPaginationTable() {
 			{
 				accessorKey: "createdAt",
 				header: "Data dodania",
+				filterVariant: "date-range",
+				accessorFn: (originalRow) => new Date(originalRow.createdAt),
 				Cell: ({ cell }) => new Date(cell.getValue<string>()).toLocaleString(),
 			},
 			{
@@ -88,7 +120,10 @@ export function BeerPaginationTable() {
 						<Button
 							size="xs"
 							variant="light"
-							onClick={() => openModal(row.original)}
+							onClick={(e) => {
+								e.stopPropagation();
+								openModal(row.original);
+							}}
 						>
 							Edytuj
 						</Button>
@@ -118,6 +153,13 @@ export function BeerPaginationTable() {
 			showAlertBanner: isError,
 			showProgressBars: isFetching,
 		},
+		initialState: { showColumnFilters: true },
+		mantineTableBodyRowProps: ({ row }) => ({
+			onClick: () => {
+				alert("row clicked");
+			},
+			style: { cursor: "pointer" },
+		}),
 	});
 
 	return (

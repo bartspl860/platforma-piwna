@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
 export async function GET() {
 	try {
 		const beers = await prisma.beer.findMany({
-			orderBy: { createdAt: "desc" },
+			orderBy: { name: "asc" },
 		});
 		return NextResponse.json(beers);
 	} catch (error) {

@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "driver": "PostgreSQL",
+            "name": "platforma_piwna",
+            "connectString": "postgres://postgres:postgres@localhost:5433/postgres"
+        }
+    ]
+}

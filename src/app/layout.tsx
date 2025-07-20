@@ -16,27 +16,8 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
 
 export const metadata = {
-	metadataBase: new URL("https://mantine-admin.vercel.app/"),
-	title: { default: "Mantine Admin", template: "%s | Mantine Admin" },
-	description: "A Modern Dashboard with Next.js.",
-	keywords: [
-		"Next.js",
-		"Mantine",
-		"Admin",
-		"Template",
-		"Admin Template",
-		"Admin Dashboard",
-		"Admin Panel",
-		"Admin UI",
-	],
-	authors: [
-		{
-			name: "jotyy",
-			url: "https://jotyy.vercel.app",
-		},
-	],
-	creator: "jotyy",
-	manifest: "https://mantine-admin.vercel.app/site.webmanifest",
+	title: { default: "Platforma Piwna"},
+	description: "Platforma do oceniania piw.",
 };
 
 export default async function RootLayout({
