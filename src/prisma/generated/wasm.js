@@ -144,7 +144,15 @@ exports.Prisma.VoteScalarFieldEnum = {
   userId: 'userId',
   beerId: 'beerId',
   stars: 'stars',
-  comment: 'comment',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CommentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  beerId: 'beerId',
+  content: 'content',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -200,6 +208,7 @@ exports.Prisma.ModelName = {
   User: 'User',
   Beer: 'Beer',
   Vote: 'Vote',
+  Comment: 'Comment',
   Account: 'Account',
   Session: 'Session',
   VerificationToken: 'VerificationToken'

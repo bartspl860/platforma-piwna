@@ -27,8 +27,7 @@ export function Navbar({ data }: Props) {
 			<div className={classes.footer}>
 				<button
 					onClick={async () => {
-						await signOut();
-						redirect("/login");
+						await signOut({ callbackUrl: "/login" });
 					}}
 					className={classes.control}
 					style={{

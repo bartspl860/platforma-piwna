@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@/prisma/generated/client";
 import { beerFormSchema } from "@/services/beers/schema";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../auth/[...nextauth]/route";
 
 const prisma = new PrismaClient();
 
@@ -9,6 +11,10 @@ export async function PATCH(
 	{ params }: { params: { id: string } }
 ) {
 	try {
+		const session = await getServerSession(authOptions);
+		if (!session) {
+			return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+		}
 		const id = params.id;
 		const body = await req.json();
 
@@ -41,6 +47,10 @@ export async function DELETE(
 	{ params }: { params: { id: string } }
 ) {
 	try {
+		const session = await getServerSession(authOptions);
+		if (!session) {
+			return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+		}
 		const id = params.id;
 		const beer = await prisma.beer.delete({
 			where: { id },

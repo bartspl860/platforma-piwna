@@ -7,8 +7,9 @@ import { useCustomTable } from "@/hooks/use-custom-table";
 import { useBeers } from "@/services/beers";
 import { Beer } from "@/services/beers/types";
 import { useDisclosure } from "@mantine/hooks";
-import BeerForm, { BeerFormValues } from "../Beers/AddBeerForm";
 import { urlToFile } from "@/services/common";
+import { useRouter } from "next/navigation";
+import BeerForm, { BeerFormValues } from "../AddBeerForm";
 
 export function BeerPaginationTable() {
 	const { data, isError, isFetching, isLoading, refetch } = useBeers();
@@ -17,6 +18,7 @@ export function BeerPaginationTable() {
 		beerId: string;
 	}>();
 	const [modalOpened, { open, close }] = useDisclosure(false);
+	const router = useRouter();
 
 	const openModal = async (beer?: Beer) => {
 		if (beer) {
@@ -155,8 +157,8 @@ export function BeerPaginationTable() {
 		},
 		initialState: { showColumnFilters: true },
 		mantineTableBodyRowProps: ({ row }) => ({
-			onClick: () => {
-				alert("row clicked");
+			onClick:  () => {
+				router.push(`/dashboard/beers/${row.original.id}`)
 			},
 			style: { cursor: "pointer" },
 		}),

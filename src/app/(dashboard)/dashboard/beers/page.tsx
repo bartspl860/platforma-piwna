@@ -1,7 +1,5 @@
-import { BeerPaginationTable } from "@/components/BeerTable/BeerPaginationTable";
+import { BeerPaginationTable } from "@/components/Beers/BeerTable/BeerPaginationTable";
 
 export default function Beers() {
-	return (
-		<BeerPaginationTable />
-	);
+	return <BeerPaginationTable />;
 }
