@@ -20,7 +20,13 @@ export async function GET(
 				beerId: params.id,
 			},
 			include: {
-				user: true,
+				user: {
+					select: {
+						name: true,
+						email: true,
+						image: true
+					}
+				},
 			},
 			orderBy: { updatedAt: "desc" },
 		});

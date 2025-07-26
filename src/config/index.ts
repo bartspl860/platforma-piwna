@@ -1,8 +1,7 @@
 import {
 	IconBeerFilled,
 	IconDashboard,
-	IconLock,
-	IconMoodSmile,
+	IconUsersGroup,
 } from "@tabler/icons-react";
 import type { NavItem } from "@/types/nav-item";
 
@@ -14,29 +13,8 @@ export const navLinks: NavItem[] = [
 		link: "/dashboard/beers",
 	},
 	{
-		label: "Auth",
-		icon: IconLock,
-		initiallyOpened: true,
-		links: [
-			{
-				label: "Login",
-				link: "/login",
-			},
-			{
-				label: "Register",
-				link: "/register",
-			},
-		],
-	},
-	{
-		label: "Sample",
-		icon: IconMoodSmile,
-		initiallyOpened: true,
-		links: [
-			{
-				label: "Landing",
-				link: "/",
-			},
-		],
+		label: "Uczestnicy",
+		icon: IconUsersGroup,
+		link: "/dashboard/users",
 	},
 ];

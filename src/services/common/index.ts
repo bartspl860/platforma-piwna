@@ -1,8 +1,8 @@
-export async function urlToFile(url?: string): Promise<File | undefined> {
+export async function urlToFile(url?: string): Promise<File | null> {
 	try {
-		if (!url) return undefined;
+		if (!url) return null;
 		const response = await fetch(url);
-		if (!response.ok) return undefined;
+		if (!response.ok) return null;
 		const blob = await response.blob();
 		// Guess filename from URL
 		const cleanUrl = url.split(/[?#]/)[0];
@@ -10,7 +10,7 @@ export async function urlToFile(url?: string): Promise<File | undefined> {
 		// Use blob.type as mimetype
 		return new File([blob], filename, { type: blob.type });
 	} catch {
-		return undefined;
+		return null;
 	}
 }
 

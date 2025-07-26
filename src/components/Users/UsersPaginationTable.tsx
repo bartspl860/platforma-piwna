@@ -9,12 +9,10 @@ import { Beer } from "@/services/beers/types";
 import { useDisclosure } from "@mantine/hooks";
 import { urlToFile } from "@/services/common";
 import { useRouter } from "next/navigation";
-import BeerForm from "../AddBeerForm";
 import { BeerFormValues } from "@/services/beers/schema";
-import { openConfirmModal } from "@mantine/modals";
-import axios from "axios";
+import BeerForm from "../Beers/AddBeerForm";
 
-export function BeerPaginationTable() {
+export function UserPaginationTable() {
 	const { data, isError, isFetching, isLoading, refetch } = useBeers();
 	const [editFormBeer, setEditFormBeer] = useState<{
 		initialValues: BeerFormValues;
@@ -40,24 +38,6 @@ export function BeerPaginationTable() {
 		open();
 	};
 
-	const onDelete = async (beer: Beer) => {
-		openConfirmModal({
-			title: `Usunąć ${beer.name}?`,
-			centered: true,
-			children: "Na pewno chcesz usunąć to piwo? Tej akcji nie można cofnąć.",
-			labels: { confirm: "Tak, usuń", cancel: "Anuluj" },
-			confirmProps: { color: "red" },
-			onConfirm: async () => {
-				try {
-					await axios.delete(`/api/beers/${beer.id}`);
-					refetch();
-				} catch (err) {
-					console.error("Delete failed", err);
-				}
-			},
-		});
-	};
-
 	const columns = useMemo<MRT_ColumnDef<Beer>[]>(
 		() => [
 			{
@@ -77,7 +57,7 @@ export function BeerPaginationTable() {
 				header: "Cena",
 
 				Cell: ({ cell }) =>
-					cell.getValue<number>()?.toLocaleString("pl", {
+					cell.getValue<number>().toLocaleString("pl", {
 						style: "currency",
 						currency: "PLN",
 					}),
@@ -154,10 +134,7 @@ export function BeerPaginationTable() {
 							size="xs"
 							color="red"
 							variant="light"
-							onClick={(e) => {
-								e.stopPropagation();
-								onDelete(row.original);
-							}}
+							// onClick={() => onDelete(row.original)}
 						>
 							Usuń
 						</Button>
@@ -181,8 +158,8 @@ export function BeerPaginationTable() {
 		},
 		initialState: { showColumnFilters: true },
 		mantineTableBodyRowProps: ({ row }) => ({
-			onClick: () => {
-				router.push(`/dashboard/beers/${row.original.id}`);
+			onClick:  () => {
+				router.push(`/dashboard/beers/${row.original.id}`)
 			},
 			style: { cursor: "pointer" },
 		}),

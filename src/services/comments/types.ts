@@ -1,4 +1,4 @@
-import { User } from "@/prisma/generated";
+import { User } from "../users/types";
 
 export interface Comment {
 	id: string;

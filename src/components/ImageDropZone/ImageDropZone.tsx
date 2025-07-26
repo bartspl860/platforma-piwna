@@ -1,3 +1,5 @@
+"use client"
+
 import { useState, useEffect } from "react";
 import { Dropzone, DropzoneProps, FileRejection } from "@mantine/dropzone";
 import { Text, Group, Stack, Button } from "@mantine/core";
@@ -21,15 +23,15 @@ function truncateFileName(filename: string, maxBaseLength = 18) {
 export function ImageDropzone({
 	value,
 	onFileChange,
-	maxSize = 5 * 1024 * 1024, // 5MB
+	maxSize = 5 * 1024 * 1024,
 	accept = { "image/*": [".png", ".jpg", ".jpeg", ".webp"] },
 	radius = "md",
 	placeholder = "Przeciągnij zdjęcie tutaj lub kliknij, aby wybrać",
 	error,
 	...rest
 }: {
-	value: File | undefined;
-	onFileChange: (file: File | undefined) => void;
+	value: File | string | null;
+	onFileChange: (file: File | string | null) => void;
 	error?: string | string[];
 	maxSize?: number;
 	accept?: DropzoneProps["accept"];
@@ -40,12 +42,22 @@ export function ImageDropzone({
 	const [localError, setLocalError] = useState<string>();
 
 	useEffect(() => {
-		if (value && value instanceof File) {
+		if (!value) {
+			setPreview(null);
+			return;
+		}
+
+		if (value instanceof File) {
 			const url = URL.createObjectURL(value);
 			setPreview(url);
 			return () => URL.revokeObjectURL(url);
 		}
-		setPreview(null);
+
+		if (typeof value === "string") {
+			setPreview(value);
+			// No cleanup needed for string
+			return;
+		}
 	}, [value]);
 
 	const handleReject = (rejections: FileRejection[]) => {
@@ -69,7 +81,14 @@ export function ImageDropzone({
 			<Dropzone
 				onDrop={(files) => {
 					setLocalError(undefined);
-					onFileChange(files[0]);
+					if (files[0]) {
+						onFileChange(files[0]);
+					}
+					else {
+						if(preview){
+							onFileChange(preview);
+						}
+					}
 				}}
 				onReject={handleReject}
 				maxSize={maxSize}
@@ -88,9 +107,23 @@ export function ImageDropzone({
 				}}
 				{...rest}
 			>
-				{!preview ? (
+				{preview ? (
+					<Button
+						color="red"
+						size="xs"
+						variant="subtle"
+						onClick={(e) => {
+							e.stopPropagation();
+							onFileChange(null);
+						}}
+						leftSection={<IconX size={16} />}
+						style={{ position: "absolute", top: 10, right: 10, zIndex: 2 }}
+					>
+						Usuń
+					</Button>
+				) : (
 					<Group justify="center" style={{ minHeight: 110 }}>
-						{value ? (
+						{value && value instanceof File ? (
 							<Text c="teal" fw={600} size="12px">
 								Wybrano plik: {truncateFileName(value.name)}
 							</Text>
@@ -106,20 +139,6 @@ export function ImageDropzone({
 							</Stack>
 						)}
 					</Group>
-				) : (
-					<Button
-						color="red"
-						size="xs"
-						variant="subtle"
-						onClick={(e) => {
-							e.stopPropagation();
-							onFileChange(undefined);
-						}}
-						leftSection={<IconX size={16} />}
-						style={{ position: "absolute", top: 10, right: 10, zIndex: 2 }}
-					>
-						Usuń
-					</Button>
 				)}
 			</Dropzone>
 			{(error || localError) && (

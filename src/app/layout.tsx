@@ -40,7 +40,6 @@ export default async function RootLayout({
           <MantineProvider theme={theme}>
             <ModalsProvider>
               <AppProvider session={session}>{children}</AppProvider>
-              <Analytics />
             </ModalsProvider>
             <Notifications />
           </MantineProvider>

@@ -1,28 +1,47 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { Within } from "@theme-toggles/react";
+import "@theme-toggles/react/css/Within.css";
+
 import {
-  Group,
-  type MantineColorScheme,
-  Radio,
   useMantineColorScheme,
+  ActionIcon,
+  Tooltip,
+  Center,
 } from "@mantine/core";
 
 export const ThemeSwitcher = () => {
   const { colorScheme, setColorScheme } = useMantineColorScheme();
+  const [mounted, setMounted] = useState(false);
+  const [toggled, setToggled] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    setToggled(colorScheme === "dark"); // set initial toggle state
+  }, [colorScheme]);
+
+  const handleToggle = () => {
+    const next = colorScheme === "dark" ? "light" : "dark";
+    setColorScheme(next);
+    setToggled(next === "dark"); // ensure immediate re-render
+  };
+
+  if (!mounted) return null;
 
   return (
-    <Radio.Group
-      value={colorScheme}
-      onChange={(value) => {
-        setColorScheme(value as MantineColorScheme);
-      }}
-      name="theme"
-      label="Theme Mode"
-    >
-      <Group mt="sm">
-        <Radio value="light" label="Light" />
-        <Radio value="dark" label="Dark" />
-      </Group>
-    </Radio.Group>
+    <Tooltip label={toggled ? "Switch to light mode" : "Switch to dark mode"} withArrow>
+      <ActionIcon
+        variant="default"
+        size="lg"
+        radius="xl"
+        onClick={handleToggle}
+        aria-label="Toggle theme"
+      >
+        <Center>
+          <Within placeholder={'Toggle dark theme'} toggled={toggled} duration={500} />
+        </Center>
+      </ActionIcon>
+    </Tooltip>
   );
 };
