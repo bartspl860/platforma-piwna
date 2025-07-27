@@ -2,6 +2,8 @@
 
 .vscode
 
+public/media
+
 # dependencies
 node_modules
 .pnp
