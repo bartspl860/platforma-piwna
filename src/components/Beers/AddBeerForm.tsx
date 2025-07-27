@@ -32,7 +32,6 @@ interface BeerFormProps {
 const BeerForm: FC<BeerFormProps> = ({ onFormSubmit, editData }) => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | undefined>(undefined);
-	const [imageChanged, setImageChanged] = useState(false);
 
 	const form = useForm<BeerFormValues>({
 		initialValues: editData
@@ -84,7 +83,6 @@ const BeerForm: FC<BeerFormProps> = ({ onFormSubmit, editData }) => {
 						setError(undefined);
 
 						let imageUrl: string | null = null;
-						let shouldDeleteOldImage = false;
 
 						if (values.image instanceof File) {
 							try {
@@ -94,7 +92,6 @@ const BeerForm: FC<BeerFormProps> = ({ onFormSubmit, editData }) => {
 									headers: { "Content-Type": "multipart/form-data" },
 								});
 								imageUrl = response.data.url;
-								shouldDeleteOldImage = !!oldImageUrl;
 							} catch (err) {
 								setError("Nie udało się przesłać zdjęcia.");
 								setLoading(false);
@@ -119,7 +116,6 @@ const BeerForm: FC<BeerFormProps> = ({ onFormSubmit, editData }) => {
 							}
 
 							form.reset();
-							setImageChanged(false);
 							onFormSubmit?.();
 						} catch (e) {
 							setError("Coś poszło nie tak podczas dodawania piwa.");
@@ -171,8 +167,7 @@ const BeerForm: FC<BeerFormProps> = ({ onFormSubmit, editData }) => {
 							<ImageDropzone
 								value={form.values.image}
 								onFileChange={(file) => {
-									form.setFieldValue("image", file ?? null);
-									setImageChanged(true);
+									form.setFieldValue("image", file);
 								}}
 							/>
 						</Box>

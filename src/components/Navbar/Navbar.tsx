@@ -20,32 +20,8 @@ export function Navbar({ data }: Props) {
 	));
 
 	return (
-		<>
-			<ScrollArea className={classes.links}>
-				<div className={classes.linksInner}>{links}</div>
-			</ScrollArea>
-			<div className={classes.footer}>
-				<button
-					onClick={async () => {
-						await signOut({ callbackUrl: "/login" });
-					}}
-					className={classes.control}
-					style={{
-						color: "#fa5252",
-						width: "100%",
-						padding: "8px 16px",
-						fontWeight: 600,
-						background: "none",
-						border: "none",
-						cursor: "pointer",
-						display: "flex",
-						alignItems: "center",
-					}}
-				>
-					<IconLogout size={18} style={{ marginRight: 8 }} />
-					Logout
-				</button>
-			</div>
-		</>
+		<ScrollArea className={classes.links}>
+			<div className={classes.linksInner}>{links}</div>
+		</ScrollArea>
 	);
 }

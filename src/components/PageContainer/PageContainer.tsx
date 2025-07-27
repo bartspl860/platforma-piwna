@@ -3,6 +3,7 @@ import {
   Breadcrumbs,
   Container,
   type ContainerProps,
+  Divider,
   Space,
   Title,
 } from "@mantine/core";
@@ -33,6 +34,8 @@ export const PageContainer: FC<PageContainerProps> = ({
       ) : null}
 
       <Title order={4}>{title}</Title>
+
+			<Divider />
 
       <Space h="lg" />
 

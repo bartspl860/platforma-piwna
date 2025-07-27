@@ -19,6 +19,7 @@ import dayjs from "dayjs";
 import { useSession } from "next-auth/react";
 import { IconTrash } from "@tabler/icons-react";
 import { CommentInput } from "../Comments/CommentInput";
+import { User } from "@/services/users/types";
 
 interface BeerCommentsProps {
 	beerId: string;
@@ -67,6 +68,8 @@ export default function BeerComments({ beerId }: BeerCommentsProps) {
 
 	const userId = session?.user?.id;
 
+	console.log(comments)
+
 	return (
 		<Stack gap="sm">
 			{isLoading && <Text c="dimmed">Ładowanie komentarzy…</Text>}
@@ -82,14 +85,14 @@ export default function BeerComments({ beerId }: BeerCommentsProps) {
 						id: string;
 						content: string;
 						createdAt: string;
-						user: { id: string; name: string | null; image: string | null };
+						user: User;
 					}) => (
 						<Card key={comment.id} p="sm" radius="md" w="100%">
 							<Group align="flex-start">
 								<Avatar
 									src={comment.user?.image ?? undefined}
 									alt={comment.user?.name ?? "?"}
-									radius="xl"
+									radius="lg"
 									size="md"
 								/>
 								<div style={{ flex: 1 }}>
