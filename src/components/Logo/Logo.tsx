@@ -26,6 +26,7 @@ export const Logo: React.FC<Props> = () => {
 				</Text>
 			</Link>
 			<Text
+			  visibleFrom="sm"
 				fw={600}
 				style={{
 					display: "inline-block",

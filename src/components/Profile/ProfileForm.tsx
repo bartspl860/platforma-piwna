@@ -1,6 +1,6 @@
 "use client";
 
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import {
 	Box,
 	Button,
@@ -15,6 +15,7 @@ import { userClientSchema, UserFormValues } from "@/services/users/schema";
 import { ImageDropzone } from "../ImageDropZone/ImageDropZone";
 import { useState } from "react";
 import axios from "axios";
+import { zodResolver } from "mantine-form-zod-resolver";
 
 interface UserFormProps {
 	editData?: {
@@ -28,7 +29,7 @@ export default function UserProfileForm({
 	editData,
 	onFormSubmit,
 }: UserFormProps) {
-	const { data: session } = useSession();
+	const { data: session, update } = useSession();
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | undefined>(undefined);
 
@@ -42,11 +43,7 @@ export default function UserProfileForm({
 					email: session.user.email ?? "",
 					image: session.user.image ?? null,
 			  },
-		validate: (values) => {
-			const result = userClientSchema.safeParse(values);
-			if (result.success) return {};
-			return result.error.flatten().fieldErrors;
-		},
+		validate: zodResolver(userClientSchema)
 	});
 
 	const handleSubmit = async (values: UserFormValues) => {
@@ -83,11 +80,14 @@ export default function UserProfileForm({
 			} else {
 				await axios.post("/api/users", apiValues);
 			}
-			await signIn("credentials", {
-				redirect: false,
-				email: form.values.email,
-			});
-			form.reset();
+			const session = await update();
+			if (session) {
+				form.setValues({
+					name: session.user.name ?? "",
+					email: session.user.email ?? "",
+					image: session.user.image ?? null,
+				});
+			}
 			onFormSubmit?.();
 		} catch (e) {
 			setError("Coś poszło nie tak podczas dodawania piwa.");

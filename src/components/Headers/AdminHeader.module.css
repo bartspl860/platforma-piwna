@@ -1,9 +1,52 @@
 .header {
 	padding: var(--mantine-spacing-md) var(--mantine-spacing-lg);
 	color: lightdark(var(--mantine-color-white), var(--mantine-color-dark));
-	gap: var(--mantine-spacing-md);
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
+	 position: relative;
+  width: 100%;
+}
+
+/* Left group for desktop: burger + logo */
+.leftGroup {
+  display: flex;
+  align-items: center;
+}
+
+/* Logo: hide on mobile, show on desktop */
+.logoDesktop {
+  display: none;
+}
+
+.logoMobile {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 60vw;
+  text-align: center;
+  display: block;
+  z-index: 1;
+  pointer-events: none; /* optional */
+}
+
+/* Search + profile on the right */
+.rightGroup {
+  min-width: 40px;
+  z-index: 2;
+}
+
+/* On desktop, show logo with burger on left, hide absolute logo */
+@media (min-width: 600px) { /* or your Mantine "sm" breakpoint */
+  .logoDesktop {
+    display: block;
+  }
+  .logoMobile {
+    display: none;
+    position: static;
+    left: unset;
+    top: unset;
+    transform: unset;
+    max-width: none;
+    text-align: left;
+    pointer-events: auto;
+  }
 }

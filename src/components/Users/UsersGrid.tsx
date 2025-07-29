@@ -46,6 +46,7 @@ export default function UsersGrid({ users }: UsersGridProps) {
               padding="lg"
               radius="md"
               withBorder
+							w={200}
               style={{
                 backgroundColor: isDark ? theme.colors.platform[7] : "#fff",
               }}
@@ -54,7 +55,7 @@ export default function UsersGrid({ users }: UsersGridProps) {
                 {user.image ? (
                   <Image
                     src={user.image}
-                    height={160}
+                    height={200}
                     alt={user.name || "User Avatar"}
                   />
                 ) : (
@@ -80,7 +81,7 @@ export default function UsersGrid({ users }: UsersGridProps) {
                 mt="md"
                 c={isDark ? "beer.3" : "platform.6"}
               >
-                {user.name || "Unknown User"}
+                {user.name || "Anonim 🥺👉👈"}
               </Text>
             </Card>
           </Grid.Col>

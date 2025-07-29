@@ -20,6 +20,7 @@ import { ImageDropzone } from "../ImageDropZone/ImageDropZone";
 import axios from "axios";
 import { beerClientSchema, BeerFormValues } from "@/services/beers/schema";
 import { toGrosz } from "@/services/common";
+import { zodResolver } from 'mantine-form-zod-resolver';
 
 interface BeerFormProps {
 	editData?: {
@@ -43,11 +44,7 @@ const BeerForm: FC<BeerFormProps> = ({ onFormSubmit, editData }) => {
 					category: BeerCategoryEnum.NIESMAKOWE,
 					image: null,
 			  },
-		validate: (values) => {
-			const result = beerClientSchema.safeParse(values);
-			if (result.success) return {};
-			return result.error.flatten().fieldErrors;
-		},
+		validate: zodResolver(beerClientSchema)
 	});
 
 	useEffect(() => {

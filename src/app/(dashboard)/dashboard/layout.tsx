@@ -29,12 +29,12 @@ export default function DashboardLayout({ children }: Props) {
 	return (
 		<AppShell
 			header={{ height: 60 }}
-			navbar={{ width: 300, breakpoint: "sm", collapsed: { mobile: !opened } }}
+			navbar={{ width: 300, breakpoint: "sm", collapsed: { mobile: !opened, desktop: !opened } }}
 			padding="md"
 			transitionDuration={500}
 			transitionTimingFunction="ease"
 			withBorder={false}
-			layout="default" // optional, but explicit
+			layout="default"
 		>
 			<AppShell.Header>
 				<AdminHeader
@@ -42,9 +42,8 @@ export default function DashboardLayout({ children }: Props) {
 						<Burger
 							opened={opened}
 							onClick={toggle}
-							hiddenFrom="sm"
 							size="sm"
-							mr="xl"
+							color="beer.4"
 						/>
 					}
 				/>

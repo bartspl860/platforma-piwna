@@ -1,11 +1,9 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { PageContainer } from "@/components/PageContainer/PageContainer";
 import UsersGrid from "@/components/Users/UsersGrid";
-import { PrismaClient } from "@/prisma/generated";
+import { prisma } from "@/prisma";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-
-const prisma = new PrismaClient();
 
 export default async function UsersPage() {
 	const session = await getServerSession(authOptions);

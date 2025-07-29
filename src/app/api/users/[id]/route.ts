@@ -5,7 +5,6 @@ import { userServerSchema } from "@/services/users/schema";
 import { notFound } from "next/navigation";
 import path from "path";
 import { unlink } from "fs/promises";
-import { revalidatePath } from "next/cache";
 import { prisma } from "@/prisma";
 
 export async function PATCH(
@@ -52,7 +51,39 @@ export async function PATCH(
 			data: body,
 		});
 
-		revalidatePath(`dashboard/profile`, "page");
+		return NextResponse.json(user, { status: 200 });
+	} catch (error: any) {
+		console.error(error);
+		if (
+			error.code === "P2025" ||
+			error.message?.includes("Record to update not found")
+		) {
+			return NextResponse.json({ error: "Beer not found" }, { status: 404 });
+		}
+		return NextResponse.json({ error: "Server error" }, { status: 500 });
+	}
+}
+
+export async function GET(
+	req: NextRequest,
+	{ params }: { params: { id: string } }
+) {
+	try {
+		const session = await getServerSession(authOptions);
+		if (!session) {
+			return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+		}
+		const id = params.id;
+
+		if (session.user.id !== id) {
+			return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+		}
+
+		const user = await prisma.user.findUnique({
+			where: {
+				id: id,
+			},
+		});
 
 		return NextResponse.json(user, { status: 200 });
 	} catch (error: any) {

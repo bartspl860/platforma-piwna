@@ -5,13 +5,11 @@ import { ScrollArea } from "@mantine/core";
 import type { NavItem } from "@/types/nav-item";
 import { NavLinksGroup } from "./NavLinksGroup";
 import classes from "./Navbar.module.css";
-import { IconLogout } from "@tabler/icons-react";
-import { signOut } from "next-auth/react";
-import { redirect } from "next/navigation";
 
 interface Props {
 	data: NavItem[];
 	hidden?: boolean;
+	onToggle?: () => void;
 }
 
 export function Navbar({ data }: Props) {

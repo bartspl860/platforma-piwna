@@ -1665,7 +1665,7 @@ export namespace Prisma {
   export type UserGroupByOutputType = {
     id: string
     name: string | null
-    email: string | null
+    email: string
     image: string | null
     hashedPassword: string | null
     _count: UserCountAggregateOutputType | null
@@ -1746,7 +1746,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string | null
-      email: string | null
+      email: string
       image: string | null
       hashedPassword: string | null
     }, ExtArgs["result"]["user"]>
@@ -2399,7 +2399,7 @@ export namespace Prisma {
     /**
      * The data needed to create a User.
      */
-    data?: XOR<UserCreateInput, UserUncheckedCreateInput>
+    data: XOR<UserCreateInput, UserUncheckedCreateInput>
   }
 
   /**
@@ -9455,7 +9455,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     id?: StringFilter<"User"> | string
     name?: StringNullableFilter<"User"> | string | null
-    email?: StringNullableFilter<"User"> | string | null
+    email?: StringFilter<"User"> | string
     image?: StringNullableFilter<"User"> | string | null
     hashedPassword?: StringNullableFilter<"User"> | string | null
     accounts?: AccountListRelationFilter
@@ -9467,7 +9467,7 @@ export namespace Prisma {
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrderInput | SortOrder
-    email?: SortOrderInput | SortOrder
+    email?: SortOrder
     image?: SortOrderInput | SortOrder
     hashedPassword?: SortOrderInput | SortOrder
     accounts?: AccountOrderByRelationAggregateInput
@@ -9494,7 +9494,7 @@ export namespace Prisma {
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrderInput | SortOrder
-    email?: SortOrderInput | SortOrder
+    email?: SortOrder
     image?: SortOrderInput | SortOrder
     hashedPassword?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -9508,7 +9508,7 @@ export namespace Prisma {
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"User"> | string
     name?: StringNullableWithAggregatesFilter<"User"> | string | null
-    email?: StringNullableWithAggregatesFilter<"User"> | string | null
+    email?: StringWithAggregatesFilter<"User"> | string
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
     hashedPassword?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
@@ -9906,7 +9906,7 @@ export namespace Prisma {
   export type UserCreateInput = {
     id?: string
     name?: string | null
-    email?: string | null
+    email: string
     image?: string | null
     hashedPassword?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -9918,7 +9918,7 @@ export namespace Prisma {
   export type UserUncheckedCreateInput = {
     id?: string
     name?: string | null
-    email?: string | null
+    email: string
     image?: string | null
     hashedPassword?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
@@ -9930,7 +9930,7 @@ export namespace Prisma {
   export type UserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     hashedPassword?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -9942,7 +9942,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     hashedPassword?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -9954,7 +9954,7 @@ export namespace Prisma {
   export type UserCreateManyInput = {
     id?: string
     name?: string | null
-    email?: string | null
+    email: string
     image?: string | null
     hashedPassword?: string | null
   }
@@ -9962,7 +9962,7 @@ export namespace Prisma {
   export type UserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     hashedPassword?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -9970,7 +9970,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     hashedPassword?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -11743,7 +11743,7 @@ export namespace Prisma {
   export type UserCreateWithoutVotesInput = {
     id?: string
     name?: string | null
-    email?: string | null
+    email: string
     image?: string | null
     hashedPassword?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -11754,7 +11754,7 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutVotesInput = {
     id?: string
     name?: string | null
-    email?: string | null
+    email: string
     image?: string | null
     hashedPassword?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
@@ -11810,7 +11810,7 @@ export namespace Prisma {
   export type UserUpdateWithoutVotesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     hashedPassword?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -11821,7 +11821,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutVotesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     hashedPassword?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -11867,7 +11867,7 @@ export namespace Prisma {
   export type UserCreateWithoutCommentsInput = {
     id?: string
     name?: string | null
-    email?: string | null
+    email: string
     image?: string | null
     hashedPassword?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -11878,7 +11878,7 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutCommentsInput = {
     id?: string
     name?: string | null
-    email?: string | null
+    email: string
     image?: string | null
     hashedPassword?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
@@ -11934,7 +11934,7 @@ export namespace Prisma {
   export type UserUpdateWithoutCommentsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     hashedPassword?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -11945,7 +11945,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutCommentsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     hashedPassword?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -11991,7 +11991,7 @@ export namespace Prisma {
   export type UserCreateWithoutAccountsInput = {
     id?: string
     name?: string | null
-    email?: string | null
+    email: string
     image?: string | null
     hashedPassword?: string | null
     sessions?: SessionCreateNestedManyWithoutUserInput
@@ -12002,7 +12002,7 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutAccountsInput = {
     id?: string
     name?: string | null
-    email?: string | null
+    email: string
     image?: string | null
     hashedPassword?: string | null
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -12029,7 +12029,7 @@ export namespace Prisma {
   export type UserUpdateWithoutAccountsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     hashedPassword?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUpdateManyWithoutUserNestedInput
@@ -12040,7 +12040,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutAccountsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     hashedPassword?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -12051,7 +12051,7 @@ export namespace Prisma {
   export type UserCreateWithoutSessionsInput = {
     id?: string
     name?: string | null
-    email?: string | null
+    email: string
     image?: string | null
     hashedPassword?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
@@ -12062,7 +12062,7 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutSessionsInput = {
     id?: string
     name?: string | null
-    email?: string | null
+    email: string
     image?: string | null
     hashedPassword?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
@@ -12089,7 +12089,7 @@ export namespace Prisma {
   export type UserUpdateWithoutSessionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     hashedPassword?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
@@ -12100,7 +12100,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutSessionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     hashedPassword?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput

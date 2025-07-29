@@ -88,7 +88,7 @@ export default function ProfileButton() {
 
 					<Stack gap={2} align="center" mb="sm">
 						<Text size="sm" fw={500}>
-							{user.name}
+							{user.name ?? "Anonim 🥺👉👈"}
 						</Text>
 						<Text size="xs" c="dimmed">
 							{user.email}
