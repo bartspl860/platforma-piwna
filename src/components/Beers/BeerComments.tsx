@@ -68,8 +68,6 @@ export default function BeerComments({ beerId }: BeerCommentsProps) {
 
 	const userId = session?.user?.id;
 
-	console.log(comments)
-
 	return (
 		<Stack gap="sm">
 			{isLoading && <Text c="dimmed">Ładowanie komentarzy…</Text>}

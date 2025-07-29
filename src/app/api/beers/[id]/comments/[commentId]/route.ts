@@ -1,9 +1,7 @@
-import { PrismaClient } from "@/prisma/generated";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { NextRequest, NextResponse } from "next/server";
-
-const prisma = new PrismaClient();
+import { prisma } from "@/prisma";
 
 export async function DELETE(
   req: NextRequest,

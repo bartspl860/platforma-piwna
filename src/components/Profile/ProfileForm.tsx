@@ -34,8 +34,6 @@ export default function UserProfileForm({
 
 	if (!session?.user) return null;
 
-	console.log(editData);
-
 	const form = useForm<UserFormValues>({
 		initialValues: editData
 			? editData.initialValues
@@ -85,6 +83,10 @@ export default function UserProfileForm({
 			} else {
 				await axios.post("/api/users", apiValues);
 			}
+			await signIn("credentials", {
+				redirect: false,
+				email: form.values.email,
+			});
 			form.reset();
 			onFormSubmit?.();
 		} catch (e) {

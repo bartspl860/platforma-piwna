@@ -6,9 +6,7 @@ import { notFound } from "next/navigation";
 import path from "path";
 import { unlink } from "fs/promises";
 import { revalidatePath } from "next/cache";
-import { PrismaClient } from "@/prisma/generated";
-
-const prisma = new PrismaClient();
+import { prisma } from "@/prisma";
 
 export async function PATCH(
 	req: NextRequest,
