@@ -5,7 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { env } from "env";
 import { Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
-import { prisma } from "@/prisma";
+import { prisma } from "prisma";
 
 export const authOptions = {
 	adapter: PrismaAdapter(prisma),

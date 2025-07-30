@@ -5,7 +5,7 @@ import { userServerSchema } from "@/services/users/schema";
 import { notFound } from "next/navigation";
 import path from "path";
 import { unlink } from "fs/promises";
-import { prisma } from "@/prisma";
+import { prisma } from "prisma";
 
 export async function PATCH(
 	req: NextRequest,

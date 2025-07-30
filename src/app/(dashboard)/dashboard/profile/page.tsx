@@ -1,5 +1,5 @@
 import { PageContainer } from "@/components/PageContainer/PageContainer";
-import { prisma } from "@/prisma";
+import { prisma } from "prisma";
 import { UserFormValues } from "@/services/users/schema";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";

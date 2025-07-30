@@ -64,11 +64,11 @@ const BeerForm: FC<BeerFormProps> = ({ onFormSubmit, editData }) => {
 			p={5}
 			style={{
 				display: "flex",
+				flexDirection: 'column',
 				alignItems: "center",
 				justifyContent: "center",
 			}}
 		>
-			<Card shadow="xl" radius="md" p="lg" withBorder w={"100%"}>
 				<Title order={2} ta="center" mb="sm">
 					{editData ? "Edytuj piwo" : "Dodaj piwo"}
 				</Title>
@@ -180,7 +180,6 @@ const BeerForm: FC<BeerFormProps> = ({ onFormSubmit, editData }) => {
 						</Button>
 					</Stack>
 				</form>
-			</Card>
 		</Box>
 	);
 };

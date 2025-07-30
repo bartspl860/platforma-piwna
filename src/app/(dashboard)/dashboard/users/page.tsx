@@ -1,7 +1,7 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { PageContainer } from "@/components/PageContainer/PageContainer";
 import UsersGrid from "@/components/Users/UsersGrid";
-import { prisma } from "@/prisma";
+import { prisma } from "prisma";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 

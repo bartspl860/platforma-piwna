@@ -1,10 +1,8 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import BeerStats from "@/components/Beers/BeerStats";
-import { PrismaClient } from "@/prisma/generated";
 import { getServerSession } from "next-auth";
 import { notFound, redirect } from "next/navigation";
-
-const prisma = new PrismaClient();
+import { prisma } from "prisma";
 
 export default async function BeerPage({ params }: { params: { id: string } }) {
 	const session = await getServerSession(authOptions);

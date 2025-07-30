@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@/prisma/generated/client";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { beerServerSchema } from "@/services/beers/schema";
-import { prisma } from "@/prisma";
+import { prisma } from "prisma";
 
 export async function POST(req: NextRequest) {
 	try {

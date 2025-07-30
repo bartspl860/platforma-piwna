@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@/prisma/generated/client";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/route";
 import { beerServerSchema } from "@/services/beers/schema";
@@ -7,7 +6,7 @@ import { notFound } from "next/navigation";
 import path from "path";
 import { unlink } from "fs/promises";
 import { revalidatePath } from "next/cache";
-import { prisma } from "@/prisma";
+import { prisma } from "prisma";
 
 export async function PATCH(
 	req: NextRequest,
