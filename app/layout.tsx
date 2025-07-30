@@ -1,45 +1,45 @@
-import '@mantine/core/styles.css';
-import '@mantine/notifications/styles.css';
+import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
 import {
-  ColorSchemeScript,
-  DirectionProvider,
-  MantineProvider,
+	ColorSchemeScript,
+	DirectionProvider,
+	MantineProvider,
 } from "@mantine/core";
 import { ModalsProvider } from "@mantine/modals";
 import { Notifications } from "@mantine/notifications";
 import { inter } from "styles/fonts";
 import { theme } from "styles/theme";
-// import { AppProvider } from "./provider"; // If AppProvider doesn't require session, keep it. If it requires session, update usage.
+import { AppProvider } from "./provider";
 
 export const metadata = {
-  title: { default: "Platforma Piwna" },
-  description: "Platforma do oceniania piw.",
+	title: { default: "Platforma Piwna" },
+	description: "Platforma do oceniania piw.",
 };
 
 export default function RootLayout({
-  children,
+	children,
 }: {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }) {
-  return (
-    <html lang="en-US">
-      <head>
-        <ColorSchemeScript />
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
-        />
-      </head>
-      <body className={inter.className}>
-        <DirectionProvider>
-          <MantineProvider theme={theme}>
-            <ModalsProvider>
-              {children}
-            </ModalsProvider>
-            <Notifications />
-          </MantineProvider>
-        </DirectionProvider>
-      </body>
-    </html>
-  );
+	return (
+		<html lang="en-US">
+			<head>
+				<ColorSchemeScript defaultColorScheme="auto" />
+				<meta
+					name="viewport"
+					content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
+				/>
+			</head>
+			<body className={inter.className}>
+				<DirectionProvider>
+					<MantineProvider theme={theme} defaultColorScheme="auto">
+						<ModalsProvider>
+							<AppProvider>{children}</AppProvider>
+						</ModalsProvider>
+						<Notifications />
+					</MantineProvider>
+				</DirectionProvider>
+			</body>
+		</html>
+	);
 }

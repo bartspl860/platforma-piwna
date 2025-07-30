@@ -2,7 +2,7 @@ import { Flex, Text } from "@mantine/core";
 import Image from "next/image";
 import Link from "next/link";
 import classes from "./Logo.module.css";
-import pp_logo from "/public/static/icons/pp-logo.png";
+import logo from "/public/logo.png";
 
 interface Props {
 	width?: string;
@@ -12,7 +12,7 @@ interface Props {
 export const Logo: React.FC<Props> = () => {
 	return (
 		<Flex direction="row" align="center" gap={5}>
-			<Image src={pp_logo} alt="Platform Logo" height={32} />
+			<Image src={logo} alt="Platform Logo" height={32} />
 			<Link
 				href="/"
 				style={{ textDecoration: "none" }}

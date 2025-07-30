@@ -1,6 +1,6 @@
-import { Anchor, Box, Title, Text } from "@mantine/core";
+import { Box, Title, Text } from "@mantine/core";
 import classes from "./layout.module.css";
-import pp_logo from "/public/static/icons/pp-logo.png";
+import logo from "/public/logo.png";
 import Image from "next/image";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 export default function AuthLayout({ children }: Props) {
 	return (
 		<Box className={classes.wrapper}>
-			<Image src={pp_logo} alt="Platform Logo" width={72} />
+			<Image src={logo} alt="Platform Logo" width={72} />
 			<Title order={1} fw="bolder">
 				Platforma
 				<Title component="span" fw="normal">

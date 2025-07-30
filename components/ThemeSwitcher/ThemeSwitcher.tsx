@@ -35,7 +35,7 @@ export const ThemeSwitcher = () => {
 					display: "inline-flex",
 					alignItems: "center",
 					justifyContent: "center",
-					padding: 4, // smaller padding
+					padding: 4,
 					borderRadius: "9999px",
 					cursor: "pointer",
 					userSelect: "none",
@@ -45,11 +45,11 @@ export const ThemeSwitcher = () => {
 			>
 				<div
 					style={{
-						transform: "scale(1.5)", // reduce toggle size
+						transform: "scale(1.5)",
 						transformOrigin: "center",
 					}}
 				>
-					<Within placeholder="Toggle theme" toggled={toggled} duration={500} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+					<Within placeholder="Toggle theme" toggled={toggled} duration={500} />
 				</div>
 			</div>
 		</Tooltip>
