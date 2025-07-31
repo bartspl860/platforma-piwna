@@ -1,6 +1,6 @@
 {
 	"name": "platforma-piwna",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"author": "Bartłomiej Spleśniały <bartlomiejsple@outlook.com>",
 	"description": "Nowoczesna platforma do testowania piw.",
 	"lint-staged": {
