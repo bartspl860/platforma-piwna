@@ -10,7 +10,7 @@ import {
 	ActionIcon,
 	useMantineColorScheme,
 } from "@mantine/core";
-import { IconPhotoPlus, IconUser, IconX } from "@tabler/icons-react";
+import { IconPhotoPlus, IconX } from "@tabler/icons-react";
 import { theme } from "@/styles/theme";
 import { useSession } from "next-auth/react";
 
@@ -37,6 +37,7 @@ export function ImageDropzone({
 	placeholder = "Przeciągnij zdjęcie tutaj lub kliknij, aby wybrać",
 	error,
 	avatar = false,
+	avatarInitials,
 	...rest
 }: {
 	value: File | string | null;
@@ -47,6 +48,7 @@ export function ImageDropzone({
 	radius?: DropzoneProps["radius"];
 	placeholder?: string;
 	avatar?: boolean;
+	avatarInitials?: string;
 } & Omit<DropzoneProps, "onDrop" | "onReject" | "accept" | "radius">) {
 	const [preview, setPreview] = useState<string | null>(null);
 	const [localError, setLocalError] = useState<string>();
@@ -63,10 +65,12 @@ export function ImageDropzone({
 		: theme.colors!.platform![6];
 
 	const fallbackInitials =
+		avatarInitials ??
 		session?.user.name
 			?.split(" ")
 			.map((n) => n[0])
-			.join("") ?? "U";
+			.join("") ??
+		"U";
 
 	useEffect(() => {
 		if (!value) {

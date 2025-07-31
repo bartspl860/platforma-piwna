@@ -14,7 +14,7 @@ import { useForm } from "@mantine/form";
 import { userClientSchema, UserFormValues } from "@/services/users/schema";
 import { ImageDropzone } from "../ImageDropZone/ImageDropZone";
 import { useState } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { zodResolver } from "mantine-form-zod-resolver";
 
 interface UserFormProps {
@@ -29,21 +29,19 @@ export default function UserProfileForm({
 	editData,
 	onFormSubmit,
 }: UserFormProps) {
-	const { data: session, update } = useSession();
+	const { update } = useSession();
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | undefined>(undefined);
-
-	if (!session?.user) return null;
 
 	const form = useForm<UserFormValues>({
 		initialValues: editData
 			? editData.initialValues
 			: {
-					name: session.user.name ?? "",
-					email: session.user.email ?? "",
-					image: session.user.image ?? null,
+					name: "",
+					email: "",
+					image: null,
 			  },
-		validate: zodResolver(userClientSchema)
+		validate: zodResolver(userClientSchema),
 	});
 
 	const handleSubmit = async (values: UserFormValues) => {
@@ -69,8 +67,14 @@ export default function UserProfileForm({
 			imageUrl = values.image;
 		}
 
+		let name = values.name;
+		if (name === "") {
+			name = null;
+		}
+
 		const apiValues = {
 			...values,
+			name,
 			image: imageUrl,
 		};
 
@@ -90,7 +94,16 @@ export default function UserProfileForm({
 			}
 			onFormSubmit?.();
 		} catch (e) {
-			setError("Coś poszło nie tak podczas dodawania piwa.");
+			if (axios.isAxiosError(e)) {
+				const serverStatus = e.response?.status;
+				switch (serverStatus) {
+					case 409:
+						setError("Uczestnik z takim emailem już istnieje.");
+						break;
+				}
+			} else {
+				setError("Coś poszło nie tak podczas dodawania uczestnika.");
+			}
 		}
 
 		setLoading(false);
@@ -103,6 +116,7 @@ export default function UserProfileForm({
 					<Box style={{ textAlign: "center" }}>
 						<ImageDropzone
 							avatar
+							avatarInitials="AZ"
 							value={form.values.image}
 							onFileChange={(file) => form.setFieldValue("image", file)}
 							radius={"xl"}
@@ -113,15 +127,11 @@ export default function UserProfileForm({
 				<form onSubmit={form.onSubmit(handleSubmit)}>
 					<Stack gap="xs">
 						<TextInput
-							label="Pseudonim"
-							withAsterisk
-							{...form.getInputProps("name")}
-						/>
-						<TextInput
 							label="Email"
 							withAsterisk
 							{...form.getInputProps("email")}
 						/>
+						<TextInput label="Pseudonim" {...form.getInputProps("name")} />
 
 						{error && (
 							<Alert color="red" mt="md">

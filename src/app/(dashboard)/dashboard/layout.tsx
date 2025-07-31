@@ -55,11 +55,7 @@ export default function DashboardLayout({ children }: Props) {
 
 			<AppShell.Main style={{ flexGrow: 1 }}>{children}</AppShell.Main>
 
-			<AppShell.Footer
-				style={{
-					marginTop: "auto",
-				}}
-			>
+			<AppShell.Footer style={{position: 'static'}}>
 				<Center>
 					<Text w="full" size="sm" c={isDark ? 'platform.6' : 'platform.1'}>
 						© {new Date().getFullYear()} Bartłomiej Spleśniały

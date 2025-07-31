@@ -33,11 +33,6 @@ export const useCustomTable = <TData extends Record<string, any> = {}>(
 				p: "md",
 				withBorder: false,
 			},
-			displayColumnDefOptions: {
-				"mrt-row-actions": {
-					size: 200, //make actions column wider
-				},
-			},
 			mantineFilterTextInputProps: {
 				style: { borderBottom: "unset", marginTop: "8px" },
 				variant: "filled",
@@ -52,15 +47,21 @@ export const useCustomTable = <TData extends Record<string, any> = {}>(
 				locale: 'pl',
 
 			},
+			displayColumnDefOptions: {
+				"mrt-row-actions": {
+					header: '',
+					size: 20
+				}
+			},
 			// features
-			enableColumnActions: false,
-			enableDensityToggle: false,
-			enableFullScreenToggle: false,
-			enableHiding: false,
-			enablePinning: false,
+			enableColumnActions: true,
+			enableDensityToggle: true,
+			enableFullScreenToggle: true,
+			enableHiding: true,
+			enablePinning: true,
 			// states
 			initialState: {
-				density: "md",
+				density: "xl",
 			},
 			columns: [],
 			data: [],

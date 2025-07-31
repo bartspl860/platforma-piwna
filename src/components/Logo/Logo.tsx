@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import classes from "./Logo.module.css";
 import pp_logo from "/public/static/icons/pp-logo.png";
+import packageJson from '../../../package.json';
 
 interface Props {
 	width?: string;
@@ -33,13 +34,13 @@ export const Logo: React.FC<Props> = () => {
 					padding: "2px 12px",
 					borderRadius: "999px",
 					background: "linear-gradient(90deg, #F4B731 0%, #D68A1D 100%)",
-					color: "#2C2520", // dark text for contrast
+					color: "#2C2520",
 					fontSize: 14,
 					letterSpacing: 1,
 					boxShadow: "0 1px 3px 0 rgba(44,37,32,0.08)",
 				}}
 			>
-				v0.0.1
+				v{packageJson.version}
 			</Text>
 		</Flex>
 	);

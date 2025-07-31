@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import path from "path";
 import { unlink } from "fs/promises";
 import { prisma } from "prisma";
+import { revalidatePath } from "next/cache";
 
 export async function PATCH(
 	req: NextRequest,
@@ -51,6 +52,8 @@ export async function PATCH(
 			data: body,
 		});
 
+		await revalidatePath("dashboard/users");
+
 		return NextResponse.json(user, { status: 200 });
 	} catch (error: any) {
 		console.error(error);
@@ -84,6 +87,42 @@ export async function GET(
 				id: id,
 			},
 		});
+
+		return NextResponse.json(user, { status: 200 });
+	} catch (error: any) {
+		console.error(error);
+		if (
+			error.code === "P2025" ||
+			error.message?.includes("Record to update not found")
+		) {
+			return NextResponse.json({ error: "Beer not found" }, { status: 404 });
+		}
+		return NextResponse.json({ error: "Server error" }, { status: 500 });
+	}
+}
+
+export async function DELETE(
+	req: NextRequest,
+	{ params }: { params: { id: string } }
+) {
+	try {
+		const session = await getServerSession(authOptions);
+		if (!session) {
+			return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+		}
+		const id = params.id;
+
+		if (session.user.id === id) {
+			return NextResponse.json({ error: "Conflict" }, { status: 409 });
+		}
+
+		const user = await prisma.user.delete({
+			where: {
+				id: id,
+			},
+		});
+
+		await revalidatePath("dashboard/users");
 
 		return NextResponse.json(user, { status: 200 });
 	} catch (error: any) {

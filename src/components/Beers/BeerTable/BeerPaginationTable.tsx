@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Group, Modal, Paper, Title } from "@mantine/core";
+import { Button, Flex, Menu, Modal, Title } from "@mantine/core";
 import { MantineReactTable, type MRT_ColumnDef } from "mantine-react-table";
 import { useMemo, useState } from "react";
 import { useCustomTable } from "@/hooks/use-custom-table";
@@ -61,6 +61,27 @@ export function BeerPaginationTable() {
 	const columns = useMemo<MRT_ColumnDef<Beer>[]>(
 		() => [
 			{
+				accessorKey: "image",
+				header: "",
+				enableColumnFilter: false,
+				enableSorting: false,
+				enablePinning: false,
+				enableColumnActions: false,
+				size: 20,
+				Cell: ({ cell }) => (
+					<img
+						src={cell.getValue<string>() ?? ""}
+						alt="<Brak>"
+						style={{
+							width: 50,
+							height: 50,
+							objectFit: "cover",
+							borderRadius: 8,
+						}}
+					/>
+				),
+			},
+			{
 				accessorKey: "name",
 				header: "Nazwa",
 			},
@@ -112,59 +133,11 @@ export function BeerPaginationTable() {
 				filterVariant: "select",
 			},
 			{
-				accessorKey: "image",
-				header: "Obraz",
-				enableColumnFilter: false,
-				Cell: ({ cell }) => (
-					<img
-						src={cell.getValue<string>()}
-						alt="<Brak>"
-						style={{
-							width: 50,
-							height: 50,
-							objectFit: "cover",
-							borderRadius: 8,
-						}}
-					/>
-				),
-			},
-			{
 				accessorKey: "createdAt",
 				header: "Data dodania",
 				filterVariant: "date-range",
 				accessorFn: (originalRow) => new Date(originalRow.createdAt),
 				Cell: ({ cell }) => new Date(cell.getValue<string>()).toLocaleString(),
-			},
-			{
-				id: "actions",
-				header: "Akcje",
-				Cell: ({ row }) => (
-					<Group gap={8}>
-						<Button
-							size="xs"
-							variant="light"
-							onClick={(e) => {
-								e.stopPropagation();
-								openModal(row.original);
-							}}
-						>
-							Edytuj
-						</Button>
-						<Button
-							size="xs"
-							color="red"
-							variant="light"
-							onClick={(e) => {
-								e.stopPropagation();
-								onDelete(row.original);
-							}}
-						>
-							Usuń
-						</Button>
-					</Group>
-				),
-				enableSorting: false,
-				enableColumnFilter: false,
 			},
 		],
 		[]
@@ -179,6 +152,29 @@ export function BeerPaginationTable() {
 			showAlertBanner: isError,
 			showProgressBars: isFetching,
 		},
+		enableRowActions: true,
+		positionActionsColumn: "first",
+		renderRowActionMenuItems: ({ row }) => (
+			<>
+				<Menu.Item
+					onClick={(e) => {
+						e.stopPropagation();
+						openModal(row.original);
+					}}
+				>
+					Edytuj
+				</Menu.Item>
+				<Menu.Item
+					c={"red"}
+					onClick={(e) => {
+						e.stopPropagation();
+						onDelete(row.original);
+					}}
+				>
+					Usuń
+				</Menu.Item>
+			</>
+		),
 		initialState: { showColumnFilters: true },
 		mantineTableBodyRowProps: ({ row }) => ({
 			onClick: () => {
@@ -199,15 +195,12 @@ export function BeerPaginationTable() {
 					}}
 				/>
 			</Modal>
-			<Paper withBorder radius="md" p="md" mt="lg">
-				<Group align="center" mb="md">
-					<Title order={5}>Baza Piw</Title>
-					<Button size="xs" onClick={() => openModal()}>
-						Dodaj piwo
-					</Button>
-				</Group>
+			<Flex direction={"column"}>
+				<Button w={100} size="xs" onClick={() => openModal()}>
+					Dodaj piwo
+				</Button>
 				<MantineReactTable table={table} />
-			</Paper>
+			</Flex>
 		</>
 	);
 }
