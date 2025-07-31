@@ -13,8 +13,8 @@ import {
 	Center,
 } from "@mantine/core";
 import { VotesStatsCard } from "../Votes/VoteCountCard";
-import { Beer, Comment, Vote } from "@/prisma/generated";
 import BeerComments from "./BeerComments";
+import { Beer, Vote } from "@prisma/client";
 
 interface BeerStatsProps {
 	votes: Vote[];

@@ -75,6 +75,7 @@ const BeerForm: FC<BeerFormProps> = ({ onFormSubmit, editData }) => {
 				<Divider mb="lg" />
 
 				<form
+					style={{width: '100%'}}
 					onSubmit={form.onSubmit(async (values) => {
 						setLoading(true);
 						setError(undefined);

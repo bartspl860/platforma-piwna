@@ -1,12 +1,13 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { auth } from "@/auth";
 import BeerStats from "@/components/Beers/BeerStats";
-import { getServerSession } from "next-auth";
 import { notFound, redirect } from "next/navigation";
 import { prisma } from "prisma";
 
-export default async function BeerPage({ params }: { params: { id: string } }) {
-	const session = await getServerSession(authOptions);
+export default async function BeerPage(context: { params: { id: string } }) {
+	const session = await auth();
 	if (!session) await redirect("/login");
+
+	const params = await context.params;
 
 	const beer = await prisma.beer.findFirst({
 		where: { id: params.id },

@@ -21,7 +21,7 @@ export const useCustomTable = <TData extends Record<string, any> = {}>(
 ) => {
 	return useMantineReactTable({
 		...{
-			paginationDisplayMode: "pages",
+			paginationDisplayMode: 'default',
 			// styles
 			mantineTableProps: {
 				align: "center",
@@ -35,7 +35,7 @@ export const useCustomTable = <TData extends Record<string, any> = {}>(
 			},
 			displayColumnDefOptions: {
 				"mrt-row-actions": {
-					size: 200, //make actions column wider
+					size: 20,
 				},
 			},
 			mantineFilterTextInputProps: {
@@ -60,7 +60,7 @@ export const useCustomTable = <TData extends Record<string, any> = {}>(
 			enablePinning: false,
 			// states
 			initialState: {
-				density: "md",
+				density: "xl",
 			},
 			columns: [],
 			data: [],

@@ -1,5 +1,6 @@
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
+import "@theme-toggles/react/css/Within.css"
 import {
 	ColorSchemeScript,
 	DirectionProvider,
@@ -24,7 +25,7 @@ export default function RootLayout({
 	return (
 		<html lang="en-US">
 			<head>
-				<ColorSchemeScript defaultColorScheme="auto" />
+				{/* <ColorSchemeScript defaultColorScheme="auto" /> */}
 				<meta
 					name="viewport"
 					content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
@@ -32,7 +33,7 @@ export default function RootLayout({
 			</head>
 			<body className={inter.className}>
 				<DirectionProvider>
-					<MantineProvider theme={theme} defaultColorScheme="auto">
+					<MantineProvider theme={theme}>
 						<ModalsProvider>
 							<AppProvider>{children}</AppProvider>
 						</ModalsProvider>
